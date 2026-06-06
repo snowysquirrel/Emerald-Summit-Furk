@@ -78,6 +78,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/datum/virtue/virtue = new /datum/virtue/none // LETHALSTONE EDIT: the virtue we get for not picking a statpack
 	var/datum/virtue/virtuetwo = new /datum/virtue/none
 	var/datum/virtue/virtue_origin = new /datum/virtue/none
+	var/datum/virtue/virtue_background = new /datum/virtue/none
 	var/selected_title = "None"
 	var/age = AGE_ADULT						//age of character
 	var/origin = "Default"
@@ -471,6 +472,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			// LETHALSTONE EDIT BEGIN: add statpack selection
 			dat += "<b>Statpack:</b> <a href='?_src_=prefs;preference=statpack;task=input'>[statpack.name]</a><BR>"
 			dat += "<BR>"
+			dat += "<b>Background:</b> <a href='?_src_=prefs;preference=background;task=input'>[virtue_background]</a><BR>"
 //			dat += "<a href='?_src_=prefs;preference=species;task=random'>Random Species</A> "
 //			dat += "<a href='?_src_=prefs;preference=toggle_random;random_type=[RANDOM_SPECIES]'>Always Random Species: [(randomise[RANDOM_SPECIES]) ? "Yes" : "No"]</A><br>"
 
@@ -2302,6 +2304,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						if ((V.name == virtue.name || V.name == virtuetwo.name) && V.name != "None")
 							continue
 						if (istype(V, /datum/virtue/origin))
+							continue
+						if (istype(V,/datum/virtue/background))
 							continue
 						if (istype(V, /datum/virtue/heretic) && !istype(selected_patron, /datum/patron/inhumen))
 							continue
