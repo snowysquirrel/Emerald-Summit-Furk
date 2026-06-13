@@ -21,7 +21,7 @@
 	monstrous shape, most keep to the wilds and the dark, though a rare few walk among the other races. \
 	They move freely across the webs of their kin and the spines of caltrops trouble them not.<br> \
 	<span style='color: #cc0f0f;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>-1 SPD</span> |<span style='color: #6a8cb7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'> +1 STR</b></span> </br> \
-	<span style='color: #cc0f0f;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>Can't wear boots</span> | <span style='color: #6a8cb7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'>Venomous, Webmaker, Longstrider, Webwalker, Skilled Climber, Strong stomach</span></b>"
+	<span style='color: #cc0f0f;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>Can't wear boots</span> | <span style='color: #6a8cb7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'>Venomous, Webmaker, Longstrider, Webwalker, Skilled Climber, Strong stomach, Underdarker</span></b>"
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR, LIPS, HAIR, LAMIAN_TAIL, OLDGREY, MUTCOLORS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
@@ -47,9 +47,9 @@
 		OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
 		)
-	inherent_traits = list(TRAIT_LONGSTRIDER, TRAIT_WILD_EATER, TRAIT_CALTROPIMMUNE, TRAIT_WEBWALK, TRAIT_VENOMOUS)
+	inherent_traits = list(TRAIT_LONGSTRIDER, TRAIT_WILD_EATER, TRAIT_CALTROPIMMUNE, TRAIT_WEBWALK, TRAIT_VENOMOUS, TRAIT_UNDERDARK)
 	disliked_food = NONE
-	race_bonus = list(STAT_STRENGTH = 1, STAT_SPEED = -1)
+	race_bonus = list(STAT_CONSTITUION =2, STAT_SPEED = -1, STAT_PERCEPTION = -1)
 	enflamed_icon = "widefire"
 	organs = list(
 		ORGAN_SLOT_BRAIN = /obj/item/organ/brain,
