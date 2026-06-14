@@ -49,7 +49,7 @@
 		)
 	inherent_traits = list(TRAIT_LONGSTRIDER, TRAIT_WILD_EATER, TRAIT_CALTROPIMMUNE, TRAIT_WEBWALK, TRAIT_VENOMOUS, TRAIT_UNDERDARK)
 	disliked_food = NONE
-	race_bonus = list(STAT_CONSTITUTION =2, STAT_SPEED = -1, STAT_PERCEPTION = -1)
+	race_bonus = list(STAT_CONSTITUTION = 2, STAT_SPEED = -1, STAT_PERCEPTION = -1)
 	enflamed_icon = "widefire"
 	organs = list(
 		ORGAN_SLOT_BRAIN = /obj/item/organ/brain,
