@@ -260,7 +260,7 @@
 		/obj/item/rogueweapon/woodstaff = 1,
 		/obj/item/natural/stone = 1,
 		)
-	craftdiff = 3
+	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/stonesword
 	name = "stone sword"
@@ -398,7 +398,7 @@
 		/obj/item/natural/bone = 2,
 		/obj/item/natural/fibers = 1,
 		)
-	craftdiff = 3
+	craftdiff = 2
 
 
 /datum/crafting_recipe/roguetown/survival/boneaxe
