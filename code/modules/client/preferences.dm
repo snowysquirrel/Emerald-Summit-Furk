@@ -2305,7 +2305,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 							continue
 						if (istype(V, /datum/virtue/origin))
 							continue
-						if (istype(V,/datum/virtue/background))
+						if (istype(V, /datum/virtue/background))
 							continue
 						if (istype(V, /datum/virtue/heretic) && !istype(selected_patron, /datum/patron/inhumen))
 							continue
@@ -2401,6 +2401,28 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 							selected_patron = GLOB.patronlist[virtue_origin.uniquefaith[1].godhead]
 						else
 							selected_patron = /datum/patron/divine/astrata
+
+				if("background")
+					var/list/virtue_choices = list()
+					for (var/path as anything in GLOB.virtues)
+						var/datum/virtue/V = GLOB.virtues[path]
+						if (!V.name)
+							continue
+						if (V.name == virtue_background.name)
+							continue
+						if (!istype(V, /datum/virtue/background))
+							continue
+						if (V.restricted == TRUE)
+							if((pref_species.type in V.races))
+								continue
+						virtue_choices[V.name] = V
+					var/result = tgui_input_list(user, "What was your lyfe before?", "BACKGROUND",virtue_choices)
+
+					if (result)
+						var/datum/virtue/virtue_chosen = virtue_choices[result]
+						virtue_background = virtue_chosen
+						to_chat(user, process_virtue_text(virtue_chosen))
+
 
 				if("charflaw")
 					var/list/coom = GLOB.character_flaws.Copy()
