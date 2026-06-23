@@ -424,7 +424,6 @@
 		H.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
 		H.adjust_skillrank(/datum/skill/craft/carpentry, 2, TRUE)
-		H.mind.adjust_spellpoints(6)
 		H.change_stat("intelligence", 3)
 		H.change_stat("speed", 2)
 		H.change_stat("fortune", 1)
@@ -435,7 +434,6 @@
 	ADD_TRAIT(H, TRAIT_RITUALIST, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_DEATHSIGHT, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_WITCH, TRAIT_GENERIC)
-	ADD_TRAIT(H, TRAIT_ARCYNE_T1, TRAIT_GENERIC)
 	H.cmode_music = 'sound/music/combat_cult.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
@@ -629,6 +627,11 @@
 	// Grant miracles like missionary
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR)	//Minor regen, can level up to T4.
+	if(istype(H.patron, /datum/patron/divine))
+		// For now, only Tennites get this. Heretics can have a special treat later
+		H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/divineblast)
+	if(istype(H.patron, /datum/patron/inhumen))
+		H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/unholyblast)
 
 // Thief subclass here. Thieves are thieves, there would be prisoners who are thieves.
 /datum/advclass/prisonerthief

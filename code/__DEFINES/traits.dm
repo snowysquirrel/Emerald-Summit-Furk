@@ -60,6 +60,7 @@
 #define TRAIT_WOODSMAN "Talented Woodsman"
 #define TRAIT_TALENTED_ALCHEMIST "Talented Alchemist" // Allows alchemy XP gain past apprentice
 #define TRAIT_LAMIAN_TAIL "Lamian Tail"
+#define TRAIT_VENOMOUS "Venomous"
 #define TRAIT_DUNGEONMASTER "Ruthless Jailor"
 #define TRAIT_SKILLBLESSED "Skill Blessed"
 #define TRAIT_LONGSWORDSMAN "Master Longswordman"
@@ -146,6 +147,7 @@
 #define TRAIT_CURSE_EORA "Eora's Curse" //world is ugly
 #define TRAIT_CURSE_RESIST "Curse Resistance" //Some folk with a tendency to get cursed are resistant
 #define TRAIT_RITES_BLOCKED "Rites Expended" // used to block using rites
+#define TRAIT_BAOTHA_FERTILITY_BOON "Marked and shaped by Baotha" //Able to be impregnated (incl. male pregnancy), boosted impreg chance; granted by Baotha's fertility rite
 
 //ASCENDANT GOD CURSES
 
@@ -203,6 +205,7 @@
 #define TRAIT_EASYDECAPITATION "Easy Decapitation"
 #define TRAIT_NOPAIN	"Painless"
 #define TRAIT_NOPAINSTUN	"Enduring"
+#define TRAIT_WHITE_STAG "Stag Protection" // Granted by eating a full white-stag venison prime cut (see cooked_stag_buffs.dm). Creature port deferred.
 #define TRAIT_NOBREATH	"Breathless"
 #define TRAIT_HOLLOW_LIFE "Hollow Lyfe"
 #define TRAIT_TOXIMMUNE	"Poison Immune"
@@ -273,6 +276,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_CHOSEN = "Astrata choose you to represent her glory.",
 	TRAIT_WEBWALK = "I can move freely between webs.",
 	TRAIT_NOSTINK = span_dead("My nose is numb to the smell of decay."),
+	TRAIT_VENOMOUS = span_necrosis("Venom flows through my fangs. Chewing upon my prey enfeebles them."),
 	TRAIT_ZJUMP = "Time to reach a new high.",
 	TRAIT_JESTERPHOBIA = span_warning("I have a severe irrational fear of Jesters"),
 	TRAIT_XENOPHOBIC = span_warning("Lesser races pollute our land"),
@@ -333,11 +337,12 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_KNOWNCRIMINAL = span_bloody("I am a branded criminal. Nothing can change this."),
 	TRAIT_NORUN = span_warning("My body has atrophied in my state of decay; my leg joints just don't have the strength or durability for running anymore"),
 	TRAIT_GOODLOVER = span_love("It's a lucky thing to share my bed."),
+	TRAIT_DEATHBYSNUSNU = "With strong intent, I am a violent partner in bed, breaking pelvis and spirit alike.",
 	TRAIT_LIMPDICK = span_crit("My soldier refuses to rise to attention! Curses!"),
 	TRAIT_SEEDKNOW = span_info("I know which seeds grow which crops."),
 	TRAIT_PERFECT_TRACKER = span_info("I am the perfect tracker. No tracks will deceive my eyes, nor will they hide their secrets from me."),//Hearthstone port.
 	TRAIT_ZIZOSIGHT = span_info("Zizo blesses my eyes to be unburdened by the night."), //Hearthstone change.
-	TRAIT_CIVILIZEDBARBARIAN = span_info("My rigorous training in the martial arts has turned me into a living weapon. No limb is out of reach for my fists and feet, and my unarmed strikes now have a higher chance to inflict critical damage."),
+	TRAIT_CIVILIZEDBARBARIAN = span_info("My rigorous training in the martial arts has turned me into a living weapon. No limb is out of reach for my fists and feet, and my unarmed strikes are now stronger (+5 Unarmed Damage)."),
 	TRAIT_COMICSANS = span_sans("I am cursed with a odd voice."),
 	TRAIT_SQUIRE_REPAIR = span_info("I know my way around my Master's tools."),
 	//TRAIT_CROPSHARE = span_info("I get a percentage of the export profit off goods I put in the stockpile!"), //Mint Rework i
@@ -389,6 +394,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_NOCINSPIRE = span_info("The moon inspires me, and whispers knowledge in my dreams. I will recieve an extra inspiration when sleeping."),
 	TRAIT_ROTMAN = span_info("I am partially undead. My heart does not beat."),
 	TRAIT_EASYDISMEMBER = span_info("My limbs are frail and fragile. They can be dismembered with greater ease, including my neck."),
+	TRAIT_EASYDECAPITATION = span_info("I often find my head rolling from my shoulders."),
 	TRAIT_NOPAIN = span_info("I feel no pain."),
 	TRAIT_NOPAINSTUN = span_info("Pain does not impair me."),
 	TRAIT_NOBREATH = span_info("I do not breathe."),

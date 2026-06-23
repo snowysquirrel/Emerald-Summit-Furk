@@ -421,6 +421,12 @@
 
 		M.update_damage_hud()
 
+		// Oiled targets are slippery — grabbing an uncovered limb can slip free.
+		// Logic lives in the Neu_Food compat layer (oiled buff is applied by fat/tallow).
+		if(M.check_oiled_grab_slip(src))
+			stop_pulling()
+			return FALSE
+
 		if(HAS_TRAIT(M, TRAIT_GRABIMMUNE) && M.stat == CONSCIOUS) // Grab immunity check
 			if(M.cmode)
 				M.visible_message(span_warning("[M] breaks from [src]'s grip effortlessly!"), \
@@ -1856,6 +1862,10 @@
 
 /mob/living/update_mouse_pointer()
 	if (!client)
+		return
+	// Keep the OS default cursor while a tgui window is open (see /mob/update_mouse_pointer).
+	if(length(tgui_open_uis))
+		client.mouse_pointer_icon = null
 		return
 	if(!client.charging && !atkswinging)
 		if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable

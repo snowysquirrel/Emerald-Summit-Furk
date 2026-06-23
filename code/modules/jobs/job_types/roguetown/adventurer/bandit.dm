@@ -3,8 +3,8 @@
 	flag = BANDIT
 	department_flag = PEASANTS
 	faction = "Station"
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS
 	disallowed_races = /datum/species/ogre
@@ -39,6 +39,7 @@
 		/datum/advclass/hedgeknight,
 		/datum/advclass/iconoclast,
 		/datum/advclass/knave,
+		/datum/advclass/pioneer,
 		/datum/advclass/roguemage,
 		/datum/advclass/sawbones,
 		/datum/advclass/sellsword

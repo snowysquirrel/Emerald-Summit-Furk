@@ -1379,6 +1379,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if (obj_broken)
 		to_chat(user, span_warning("It's completely broken."))
 		return
+	if (istype(src, /obj/item/contraption))
+		var/obj/item/contraption/i = src
+		if (i.current_charge <= 0)
+			to_chat(user, span_warning("Not charged."))
+			return
 	wielded = TRUE
 	if(force_wielded)
 		update_force_dynamic()
@@ -1586,6 +1591,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 /obj/item/examine(mob/user)
 	. = ..()
+	// Free-folk bandits can spot at a glance whether an item is a valid offering to Matthios's idol.
+	if(HAS_TRAIT(user, TRAIT_COMMIE) && is_idol_offering())
+		. += span_smallnotice("Matthios would welcome this offering — worth [get_real_price()] favor at his idol.")
 	if(item_flags & GIANT_WEAPON)
 		. += span_warning("This weapon is designed for giants. Those without giant strength will require double the normal strength to wield it effectively.")
 	if(isliving(user))

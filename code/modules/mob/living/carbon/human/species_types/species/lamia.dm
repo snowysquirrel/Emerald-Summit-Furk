@@ -19,7 +19,7 @@
 	with the exception of Axians and some coast-dwelling Zardmen with whom they share their natural heartlands. Many a sailor has met their end at the claws of Lamias. \
 	Yet... not all of them have stayed in the depths of the abyss, for some of the clans have moved far away from the coastal regions, settling in swamps, forests and even deserts, having spread themselves far and wide aeons ago.<br>\
 	<span style='color: #cc0f0f;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>-1 SPD</span> |<span style='color: #6a8cb7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'> +1 STR</b></span> </br> \
-	<span style='color: #cc0f0f;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>Can't wear boots</span> | <span style='color: #6a8cb7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'>Strong kicks, Longstrider, Strong stomach</span></b>"
+	<span style='color: #cc0f0f;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>Can't wear boots</span> | <span style='color: #6a8cb7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'>Strong kicks, Venomous, Longstrider, Strong stomach</span></b>"
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR, LIPS, HAIR, LAMIAN_TAIL, OLDGREY, MUTCOLORS)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
@@ -30,7 +30,9 @@
 	dam_icon_f = 'icons/roguetown/mob/bodies/dam/dam_female.dmi'
 //	clothes_id = "lamia"
 //	custom_clothes = TRUE
-	no_equip = list(SLOT_SHOES, SLOT_PANTS)
+	// Shoes/pants are blocked dynamically while the lamian tail is present (see can_equip);
+	// once the tail is surgically replaced with legs, leg gear becomes wearable.
+	no_equip = list()
 	soundpack_m = /datum/voicepack/male
 	soundpack_f = /datum/voicepack/female
 	offset_features = list(
@@ -45,7 +47,7 @@
 		OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
 		)
-	inherent_traits = list(TRAIT_LONGSTRIDER, TRAIT_WILD_EATER, TRAIT_LAMIAN_TAIL, TRAIT_CALTROPIMMUNE)
+	inherent_traits = list(TRAIT_LONGSTRIDER, TRAIT_WILD_EATER, TRAIT_LAMIAN_TAIL, TRAIT_CALTROPIMMUNE, TRAIT_VENOMOUS)
 	disliked_food = NONE
 	race_bonus = list(STAT_STRENGTH = 1, STAT_SPEED = -1) // SMOKINGRAWOCB
 	enflamed_icon = "widefire"
@@ -107,6 +109,7 @@
 
 	body_markings = list(
 		/datum/body_marking/flushed_cheeks,
+		/datum/body_marking/cheek_grease,
 		/datum/body_marking/eyeliner,
 		/datum/body_marking/plain,
 		/datum/body_marking/tiger,
@@ -165,6 +168,8 @@
 	..()
 	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	C.Lamiaze()
+	// Natural leg/feet armor is granted by the lamian_tail bodypart itself (attach_limb),
+	// so it follows the lower body rather than the species. See lamian_tail.dm.
 
 /datum/species/lamia/on_species_loss(mob/living/carbon/C) // one of those auto-appends a dot at the end of player speech
 	. = ..()
@@ -283,3 +288,38 @@
 
 /datum/species/lamia/spec_fully_heal(mob/living/carbon/human/H)
 	H.Lamiaze()
+
+// Natural leg+feet armor for the lamia/drider lower body — the same mechanic as the harpy's talon
+// skin (skin_armor slot, invisible icon_state, NODROP). Covers the leg/foot zones the tail occupies.
+// Equipped/removed in the species on_species_gain/on_species_loss. Drider subclasses this in drider.dm.
+/obj/item/clothing/suit/roguetown/armor/skin_armor/lamian_legs
+	slot_flags = null
+	name = "scaled tail"
+	desc = ""
+	icon_state = null
+	// Must include TAIL_LAMIA: the taur lower body's primary hit zone is BODY_ZONE_LAMIAN_TAIL,
+	// and zone2covered() only matches that zone against the TAIL_LAMIA flag. Without it, hits landing
+	// on the tail zone skipped this armor entirely (A+ blunt/slash "never came into play"). FEET|LEGS
+	// still covers the leg/foot subtarget zones.
+	body_parts_covered = FEET|LEGS|TAIL_LAMIA
+	body_parts_inherent = FEET|LEGS|TAIL_LAMIA
+	armor = list("blunt" = 90, "slash" = 90, "stab" = 50, "piercing" = 20, "fire" = 0, "acid" = 0)
+	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_STAB, BCLASS_BLUNT, BCLASS_TWIST)
+	blocksound = SOFTHIT
+	blade_dulling = DULLING_BASHCHOP
+	sewrepair = FALSE
+	max_integrity = 75
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/suit/roguetown/armor/skin_armor/lamian_legs/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+
+/obj/item/clothing/suit/roguetown/armor/skin_armor/lamian_legs/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(QDELETED(src))
+		return
+	qdel(src)
+
+/obj/item/clothing/suit/roguetown/armor/skin_armor/lamian_legs/obj_destruction()
+	visible_message("The scaled hide is torn!", span_bloody("<b>THE SCALES ON MY TAIL ARE TORN!!</b>"))
