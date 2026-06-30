@@ -1,55 +1,110 @@
-/datum/virtue/background/insertclasshere/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("","","")
-	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
-	switch(equip_choice)
-		if("")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/, 
-					
-				)
-			H.adjust_skillrank_up_to(/datum/skill/)
-		if("")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/, 
-					
-				)
-			H.adjust_skillrank_up_to(/datum/skill/)
-		if("")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/, 
-					
-				)
-			give_special_items(H)
-			H.adjust_skillrank_up_to(/datum/skill/)
-
-
-
-// globalize the skills dummy
-
-
-
 /datum/virtue/background/none //for having no background
 	name = "None"
 	desc = "You have aspired to (or been given) little in the way of trade or upbringing."
 
-//placeholder reminder to make virtue that gives two backgrounds?
-
-/datum/virtue/background/roguealchemist
-	name = "Rogue Alchemist"
-	desc = "I like to watch the world burn, and I've stowed away bombs and materials to help me achieve that fact."
-	added_skills = list(list(/datum/skill/craft/alchemy, 2, 4))
-
-/datum/virtue/background/arsonist/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Bomber")
+/datum/virtue/background/artificer
+	name = "Artificer's Apprentice"
+	desc = "In my youth, I worked under a skilled artificer, studying construction and engineering."
+	custom_text = "Tinkerer comes with cogs and bronze ingots. Mason comes with a blowrod and bricks."
+	added_stashed_items = list(	
+		"Hammer" = /obj/item/rogueweapon/hammer/wood,
+		"Chisel" = /obj/item/rogueweapon/chisel,
+		"Hand Saw" = /obj/item/rogueweapon/handsaw
+	)
+	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
+						list(/datum/skill/craft/carpentry, 2, 2),
+						list(/datum/skill/craft/masonry, 2, 2),
+						list(/datum/skill/craft/engineering, 2, 2),
+						list(/datum/skill/craft/smelting, 2, 2),
+						list(/datum/skill/misc/ceramics, 2, 2)
+	)
+/datum/virtue/background/artificer/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Tinkerer","Mason")
 	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
 	switch(equip_choice)
-		if("Bomber")
+		if("Tinkerer")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/arsonbomb, 
+					"Equipment Bag" = /obj/item/storage/roguebag/artificertinker
+				)
+		if("Mason")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/artificermason
+				)
+
+/datum/virtue/background/blacksmith //scrapper subclass; mobile smelter and ... stuff
+	name = "Blacksmith's Apprentice"
+	desc = "In my youth, I worked under a skilled blacksmith, honing my skills with an anvil."
+	custom_text = "Smith loadout comes with ingots and equipment to start smithing. Scrapper is focused on finding refuse to recycle with handheld smelter (& has smithing tools)."
+	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
+						list(/datum/skill/craft/weaponsmithing, 2, 2),
+						list(/datum/skill/craft/armorsmithing, 2, 2),
+						list(/datum/skill/craft/blacksmithing, 2, 2),
+						list(/datum/skill/craft/smelting, 2, 2))
+
+/datum/virtue/background/blacksmith/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Smith")
+	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
+	switch(equip_choice)
+		if("Smith")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/smithapp
+				)
+		if("Scrapper")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/smithscrap
+				)
+
+/datum/virtue/background/brawler
+	name = "Brawler's Apprentice"
+	desc = "I have trained under a skilled brawler, and have some experience fighting with my fists."
+	custom_text = "+2 to Unarmed and Wrestling (Max Journeyman), with choice of Katar or Knuckles."
+	
+/datum/virtue/background/brawler/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Katar","Knuckles")
+	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
+	switch(equip_choice)
+		if("Katar")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/brawlkatar
+					
+				)
+			H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 2, 3)
+			H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 2, 3)
+		if("Knuckles")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/brawlknuck 
+					
+				)
+			H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 2, 3)
+			H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 2, 3)
+
+/datum/virtue/background/granary
+	name = "Cunning Provisioner"
+	desc = "You've worked in or around the docks enough to steal away a sack of supplies that no one would surely miss, just in case. You've picked up on some cooking and fishing tips in your spare time, as well."
+	custom_text = "Both come with a cooling backpack. Chef is equipped with a variety of foods + pan for cooking (and a chef's knife). Fisher has a fishing rod, bait, pan, and supplies for making fishing traps."
+	added_skills = list(list(/datum/skill/craft/cooking, 3, 6),
+						list(/datum/skill/labor/fishing, 2, 6))
+
+/datum/virtue/background/granary/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Chef","Fisher")
+	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
+	switch(equip_choice)
+		if("Chef")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/backpack/rogue/artibackpack/cunningchef 
+					
+				)
+		if("Fisher")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/backpack/rogue/artibackpack/cunningfish 
 					
 				)
 
@@ -113,117 +168,64 @@
 				)
 			H.adjust_skillrank_up_to(/datum/skill/combat/axes, 2, 3)
 
-/datum/virtue/background/militia
-	name = "Militiaman"
-	desc = "I have trained with the local garrison in case I'm ever to be levied to fight for my lord. My gear is stashed away, in case I am ever levied."
-	custom_text = "+2 to Maces, Polearms, & Slings (Max Journeyman) depending on equipment choice (Cudgel, Quarterstaff, Spear+Sling)."
-/datum/virtue/background/militia/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Guard (Cudgel, Buckler)","Watchman (Quarterstaff)","Conscript (Spear, Sling)")
+/datum/virtue/background/forester
+	name = "Forester"
+	desc = "The forest is your home, or at least, it used to be. You always long to return and roam free once again, and you have not forgotten your knowledge on how to be self sufficient."
+	custom_text = "Lumberer comes with an axe, fishing rod, and whetstone. Farmer has an assortment of seeds, crops, and a hoe."
+	added_skills = list(list(/datum/skill/craft/cooking, 2, 2),
+						list(/datum/skill/misc/athletics, 2, 2),
+						list(/datum/skill/labor/farming, 2, 2),
+						list(/datum/skill/labor/fishing, 2, 2),
+						list(/datum/skill/labor/lumberjacking, 2, 2)
+	)
+
+/datum/virtue/background/forester/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Lumberer","Farmer")
 	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
 	switch(equip_choice)
-		if("Guard (Cudgel, Buckler)")
+		if("Lumberer")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/militiaguard, 
-					"Cudgel" = /obj/item/rogueweapon/mace/cudgel,
-					"Buckler" = /obj/item/rogueweapon/shield/buckler,
+					"Equipment Bag" = /obj/item/storage/roguebag/forestlumber,
+					"Axe" = /obj/item/rogueweapon/stoneaxe/woodcut
+					
 				)
-			H.adjust_skillrank_up_to(/datum/skill/combat/maces, 2, 3)
-		if("Watchman (Quarterstaff)")
+		if("Farmer")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/militiawatch, 
-					"Quarterstaff" = /obj/item/rogueweapon/woodstaff/quarterstaff/steel,
+					"Equipment Bag" = /obj/item/storage/roguebag/forestfarm,
+					"Hoe" = /obj/item/rogueweapon/hoe
+					
 				)
-			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 2, 3)
-		if("Conscript (Spear, Sling)")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/militiaconscript, 
-					"Militia Spear" = /obj/item/rogueweapon/spear/militia,
-				)
-			give_special_items(H)
-			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 2, 3)
-			H.adjust_skillrank_up_to(/datum/skill/combat/slings, 2, 3)
 
-/datum/virtue/background/brawler
-	name = "Brawler's Apprentice"
-	desc = "I have trained under a skilled brawler, and have some experience fighting with my fists."
-	custom_text = "+2 to Unarmed and Wrestling (Max Journeyman), with choice of Katar or Knuckles."
-	
-/datum/virtue/background/brawler/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Katar","Knuckles")
+/datum/virtue/background/hunter
+	name = "Hunter's Apprentice"
+	desc = "In my youth, I trained under a skilled hunter, learning how to butcher animals and work with leather/hide."
+	custom_text = "Trapper comes with bait and ingredients for a mantrap. Tanner comes with bait, fat."
+	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
+						list(/datum/skill/craft/traps, 2, 2),
+						list(/datum/skill/labor/butchering, 2, 2),
+						list(/datum/skill/misc/sewing, 2, 2),
+						list(/datum/skill/craft/tanning, 2, 2),
+						list(/datum/skill/misc/tracking, 2, 2)
+	)
+/datum/virtue/background/hunter/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Trapper","Tanner")
 	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
 	switch(equip_choice)
-		if("Katar")
+		if("Trapper")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/brawlkatar
+					"Equipment Bag" = /obj/item/storage/roguebag/huntertrap 
 					
 				)
-			H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 2, 3)
-			H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 2, 3)
-		if("Knuckles")
+			H.adjust_skillrank_up_to(/datum/skill/craft/traps, 3, 3)
+		if("Tanner")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/brawlknuck 
-					
+					"Equipment Bag" = /obj/item/storage/roguebag/huntertan, 
+			
 				)
-			H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 2, 3)
-			H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 2, 3)
-
-
-/datum/virtue/background/bowman
-	name = "Toxophilite"
-	desc = "I've had an interest in archery from a young age, and I always keep a spare bow and quiver around."
-	custom_text = "+2 to Bows and Crossbows (Max Journeyman), depending on equipment choice (Receuve Bow or Crossbow)."
-
-/datum/virtue/background/bowman/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Archer","Crossbowman")
-	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
-	switch(equip_choice)
-		if("Archer")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/toxarcher,
-					"Recurve Bow" =  /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve,
-					"Quiver" = /obj/item/quiver/arrows
-					
-				)
-			H.adjust_skillrank_up_to(/datum/skill/combat/bows, 2, 3)
-		if("Crossbowman")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/toxcross,
-					"Crossbow" = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow,
-					"Quiver" = /obj/item/quiver/bolts
-					
-				)
-			H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, 2, 3)
-
-
-// Utility
-/datum/virtue/background/sailor
-	name = "Sailor"
-	desc = "You spent your daes on the sea, learning to brace ships against storms and swim against Abyssor's tides."
-	custom_text = "Apprenticeship in Swimming, Crafting, Carpentry, Fishing, Novice in Axe. Given carpentry tools and an axe."
-
-/datum/virtue/background/sailor/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Sailor")
-	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
-	switch(equip_choice)
-		if("Sailor")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/sailfix 
-					
-				)
-			H.adjust_skillrank_up_to(/datum/skill/misc/swimming, 2, 3)
-			H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 2, 2)
-			H.adjust_skillrank_up_to(/datum/skill/craft/crafting, 2, 2)
-			H.adjust_skillrank_up_to(/datum/skill/craft/carpentry, 2, 2)
-			H.adjust_skillrank_up_to(/datum/skill/labor/fishing, 2, 6)
-
 
 /datum/virtue/background/linguist
 	name = "Intellectual"
@@ -280,103 +282,6 @@
 				to_chat(recipient, span_info("I recall my knowledge of [chosen_language]..."))
 				count--
 
-/datum/virtue/background/blacksmith //scrapper subclass; mobile smelter and ... stuff
-	name = "Blacksmith's Apprentice"
-	desc = "In my youth, I worked under a skilled blacksmith, honing my skills with an anvil."
-	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
-						list(/datum/skill/craft/weaponsmithing, 2, 2),
-						list(/datum/skill/craft/armorsmithing, 2, 2),
-						list(/datum/skill/craft/blacksmithing, 2, 2),
-						list(/datum/skill/craft/smelting, 2, 2))
-
-/datum/virtue/background/blacksmith/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Smith")
-	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
-	switch(equip_choice)
-		if("Smith")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/smithapp
-				)
-		if("Scrapper")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/smithscrap
-				)
-
-/datum/virtue/background/hunter
-	name = "Hunter's Apprentice"
-	desc = "In my youth, I trained under a skilled hunter, learning how to butcher animals and work with leather/hide." // remember to put in how to make drying rack
-	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
-						list(/datum/skill/craft/traps, 2, 2),
-						list(/datum/skill/labor/butchering, 2, 2),
-						list(/datum/skill/misc/sewing, 2, 2),
-						list(/datum/skill/craft/tanning, 2, 2),
-						list(/datum/skill/misc/tracking, 2, 2)
-	)
-/datum/virtue/background/hunter/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Trapper","Tanner")
-	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
-	switch(equip_choice)
-		if("Trapper")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/huntertrap 
-					
-				)
-			H.adjust_skillrank_up_to(/datum/skill/craft/traps, 3, 3)
-		if("Tanner")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/huntertan, 
-			
-				)
-
-/datum/virtue/background/artificer
-	name = "Artificer's Apprentice"
-	desc = "In my youth, I worked under a skilled artificer, studying construction and engineering."
-	added_stashed_items = list(	
-		"Hammer" = /obj/item/rogueweapon/hammer/wood,
-		"Chisel" = /obj/item/rogueweapon/chisel,
-		"Hand Saw" = /obj/item/rogueweapon/handsaw,
-	)
-	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
-						list(/datum/skill/craft/carpentry, 2, 2),
-						list(/datum/skill/craft/masonry, 2, 2),
-						list(/datum/skill/craft/engineering, 2, 2),
-						list(/datum/skill/craft/smelting, 2, 2),
-						list(/datum/skill/misc/ceramics, 2, 2)
-	)
-/datum/virtue/background/artificer/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Tinkerer","Mason")
-	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
-	switch(equip_choice)
-		if("Tinkerer")
-			H.put_in_hands(new /obj/item/storage/roguebag/artificertinker, TRUE)
-		if("Mason")
-			H.put_in_hands(new /obj/item/storage/roguebag/artificermason, TRUE)
-
-/datum/virtue/background/physician
-	name = "Physician's Apprentice"
-	desc = "In my youth, I worked under a skilled physician, studying medicine and alchemy."
-	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
-						list(/datum/skill/craft/alchemy, 2, 2),
-						list(/datum/skill/misc/medicine, 2, 2)
-	)
-/datum/virtue/background/physician/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Alchemist","Surgeon")
-	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
-	switch(equip_choice)
-		if("Alchemist")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/physalc, 
-				)
-		if("Surgeon")
-			if(H.mind)
-				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/physurg, 
-				)
 
 /datum/virtue/background/light_steps //remember to drag dustrunner over
 	name = "Light Steps"
@@ -408,41 +313,38 @@
 			H.adjust_skillrank_up_to(/datum/skill/misc/stealing, 3, 4)
 			H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, 1, 3)
 
-/datum/virtue/background/forester
-	name = "Forester"
-	desc = "The forest is your home, or at least, it used to be. You always long to return and roam free once again, and you have not forgotten your knowledge on how to be self sufficient."
-	added_skills = list(list(/datum/skill/craft/cooking, 2, 2),
-						list(/datum/skill/misc/athletics, 2, 2),
-						list(/datum/skill/labor/farming, 2, 2),
-						list(/datum/skill/labor/fishing, 2, 2),
-						list(/datum/skill/labor/lumberjacking, 2, 2)
-	)
-
-/datum/virtue/background/forester/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Lumberer","Farmer","")
+/datum/virtue/background/militia
+	name = "Militiaman"
+	desc = "I have trained with the local garrison in case I'm ever to be levied to fight for my lord. My gear is stashed away, in case I am ever levied."
+	custom_text = "+2 to Maces, Polearms, & Slings (Max Journeyman) depending on equipment choice (Cudgel, Quarterstaff, Spear+Sling)."
+/datum/virtue/background/militia/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Guard (Cudgel, Buckler)","Watchman (Quarterstaff)","Conscript (Spear, Sling)")
 	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
 	switch(equip_choice)
-		if("Lumberer")
+		if("Guard (Cudgel, Buckler)")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/forestlumber,
-					"Axe" = /obj/item/rogueweapon/stoneaxe/woodcut
-					
+					"Equipment Bag" = /obj/item/storage/roguebag/militiaguard, 
+					"Cudgel" = /obj/item/rogueweapon/mace/cudgel,
+					"Buckler" = /obj/item/rogueweapon/shield/buckler,
 				)
-		if("Farmer")
+			H.adjust_skillrank_up_to(/datum/skill/combat/maces, 2, 3)
+		if("Watchman (Quarterstaff)")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/roguebag/forestfarm,
-					"Hoe" = /obj/item/rogueweapon/hoe
-					
+					"Equipment Bag" = /obj/item/storage/roguebag/militiawatch, 
+					"Quarterstaff" = /obj/item/rogueweapon/woodstaff/quarterstaff/steel
 				)
-
-/datum/virtue/utility/tracker
-	name = "Sleuth"
-	desc = "You realised long ago that the ability to find a man is as helpful to aid the law as it is to evade it."
-	added_skills = list(list(/datum/skill/misc/tracking, 3, 6))
-	added_traits = list(TRAIT_SLEUTH)
-	custom_text = "- Upon right clicking a track, you will Mark the person who made them <i>(Expert skill required, not exclusive to this Virtue)</i>.\n- Further tracks found will be automatically highlighted as theirs, along with the person themselves, if they are not sneaking or invisible at the time.\n- Reduces the cooldown for tracking, allows track examining right away, and movement no longer cancels tracking."
+			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 2, 3)
+		if("Conscript (Spear, Sling)")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/militiaconscript, 
+					"Militia Spear" = /obj/item/rogueweapon/spear/militia,
+				)
+			give_special_items(H)
+			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 2, 3)
+			H.adjust_skillrank_up_to(/datum/skill/combat/slings, 2, 3)
 
 /datum/virtue/background/mining
 	name = "Miner's Apprentice"
@@ -476,29 +378,103 @@
 		var/instrument_type = instruments[chosen_name]
 		recipient.mind?.special_items[chosen_name] = instrument_type
 
-/datum/virtue/background/granary
-	name = "Cunning Provisioner"
-	desc = "You've worked in or around the docks enough to steal away a sack of supplies that no one would surely miss, just in case. You've picked up on some cooking and fishing tips in your spare time, as well."
-	added_skills = list(list(/datum/skill/craft/cooking, 3, 6),
-						list(/datum/skill/labor/fishing, 2, 6))
-
-/datum/virtue/background/granary/apply_to_human(mob/living/carbon/human/H)
-	var/equipment = list("Chef","Fisher")
+/datum/virtue/background/physician
+	name = "Physician's Apprentice"
+	desc = "In my youth, I worked under a skilled physician, studying medicine and alchemy."
+	custom_text = "Alchemist comes with a bedroll, healing vials, and basic medical supplies. Surgeon is equipped with improvised surgical tools, a bedroll, and a needle."
+	added_skills = list(list(/datum/skill/craft/crafting, 2, 2),
+						list(/datum/skill/craft/alchemy, 2, 2),
+						list(/datum/skill/misc/medicine, 2, 2)
+	)
+/datum/virtue/background/physician/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Alchemist","Surgeon")
 	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
 	switch(equip_choice)
-		if("Chef")
+		if("Alchemist")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/backpack/rogue/artibackpack/cunningchef 
-					
+					"Equipment Bag" = /obj/item/storage/roguebag/physalc, 
 				)
-		if("Fisher")
+		if("Surgeon")
 			if(H.mind)
 				H.mind.special_items = list(
-					"Equipment Bag" = /obj/item/storage/backpack/rogue/artibackpack/cunningfish 
+					"Equipment Bag" = /obj/item/storage/roguebag/physurg, 
+				)
+
+/datum/virtue/background/roguealchemist
+	name = "Rogue Alchemist"
+	desc = "I like to watch the world burn, and I've stowed away bombs and materials to help me achieve that fact."
+	custom_text = "+2 Alchemy (Maximum Expert), Firebombs, Familiar Scroll, & Bomb Materials."
+	added_skills = list(list(/datum/skill/craft/alchemy, 2, 4))
+
+/datum/virtue/background/arsonist/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Bomber")
+	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
+	switch(equip_choice)
+		if("Bomber")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/arsonbomb, 
 					
 				)
 
+/datum/virtue/background/sailor
+	name = "Sailor"
+	desc = "You spent your daes on the sea, learning to brace ships against storms and swim against Abyssor's tides."
+	custom_text = "Comes with carpentry tools, fishing rod + bait, and an axe."
+	added_skills = list(list(/datum/skill/misc/swimming, 2, 3),
+						list(/datum/skill/misc/athletics, 2, 3),
+						list(/datum/skill/craft/crafting, 2, 2),
+						list(/datum/skill/craft/carpentry, 2, 2),
+						list(/datum/skill/labor/fishing, 2, 6))
+
+/datum/virtue/background/sailor/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Sailor")
+	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
+	switch(equip_choice)
+		if("Sailor")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/sailfix 
+					
+				)
+
+/datum/virtue/utility/tracker
+	name = "Sleuth"
+	desc = "You realised long ago that the ability to find a man is as helpful to aid the law as it is to evade it."
+	added_skills = list(list(/datum/skill/misc/tracking, 3, 6))
+	added_traits = list(TRAIT_SLEUTH)
+	custom_text = "- Upon right clicking a track, you will Mark the person who made them <i>(Expert skill required, not exclusive to this Virtue)</i>.\n- Further tracks found will be automatically highlighted as theirs, along with the person themselves, if they are not sneaking or invisible at the time.\n- Reduces the cooldown for tracking, allows track examining right away, and movement no longer cancels tracking. Comes with a net and rope."
+	added_stashed_items = list(
+		"Equipment Bag" = /obj/item/storage/roguebag/sleuth)
+
+/datum/virtue/background/bowman
+	name = "Toxophilite"
+	desc = "I've had an interest in archery from a young age, and I always keep a spare bow and quiver around."
+	custom_text = "+2 to Bows and Crossbows (Max Journeyman), depending on equipment choice (Receuve Bow or Crossbow)."
+
+/datum/virtue/background/bowman/apply_to_human(mob/living/carbon/human/H)
+	var/equipment = list("Archer","Crossbowman")
+	var/equip_choice = input(H,"What did you bring?", "What do you own?") as anything in equipment
+	switch(equip_choice)
+		if("Archer")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/toxarcher,
+					"Recurve Bow" =  /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve,
+					"Quiver" = /obj/item/quiver/arrows
+					
+				)
+			H.adjust_skillrank_up_to(/datum/skill/combat/bows, 2, 3)
+		if("Crossbowman")
+			if(H.mind)
+				H.mind.special_items = list(
+					"Equipment Bag" = /obj/item/storage/roguebag/toxcross,
+					"Crossbow" = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow,
+					"Quiver" = /obj/item/quiver/bolts
+					
+				)
+			H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, 2, 3)
 
 
 
@@ -539,15 +515,28 @@
 //Artificer
 /obj/item/storage/roguebag/artificertinker
 	populate_contents = list(
-		/obj/item/contraption = 3,
-		/obj/item/ingot/bronze = 3,
-		/obj/item/natural/bundle/stick = 4
+		/obj/item/contraption,
+		/obj/item/contraption,
+		/obj/item/contraption,
+		/obj/item/ingot/bronze,
+		/obj/item/ingot/bronze,
+		/obj/item/ingot/bronze,
+		/obj/item/natural/bundle/stick,
+		/obj/item/natural/bundle/stick,
+		/obj/item/natural/bundle/stick,
+		/obj/item/natural/bundle/stick
 
 	)
 /obj/item/storage/roguebag/artificermason
 	populate_contents = list(
 		/obj/item/rogueweapon/blowrod,
-		/obj/item/natural/bundle/brick = 7,
+		/obj/item/natural/bundle/brick,
+		/obj/item/natural/bundle/brick,
+		/obj/item/natural/bundle/brick,
+		/obj/item/natural/bundle/brick,
+		/obj/item/natural/bundle/brick,
+		/obj/item/natural/bundle/brick,
+		/obj/item/natural/bundle/brick
 		//add more here
 
 	)
@@ -557,8 +546,12 @@
 	populate_contents = list(
 		/obj/item/rogueweapon/tongs,
 		/obj/item/rogueweapon/hammer/iron,
-		/obj/item/ingot/iron = 3,
-		/obj/item/ingot/steel = 3
+		/obj/item/ingot/iron,
+		/obj/item/ingot/iron,
+		/obj/item/ingot/iron,
+		/obj/item/ingot/steel,
+		/obj/item/ingot/steel,
+		/obj/item/ingot/steel
 	)
 
 /obj/item/storage/roguebag/smithscrap
@@ -570,7 +563,7 @@
 		/obj/item/rogueore/coal,
 		/obj/item/rogueore/coal,
 		/obj/item/rogueore/coal,
-	//	/obj/machinery/light/rogue/smelter/hand_held
+		/obj/machinery/light/rogue/smelter/hand_held
 
 	)
 
@@ -585,19 +578,23 @@
 /obj/item/storage/roguebag/brawlknuck
 	populate_contents = list(
 		/obj/item/clothing/wrists/roguetown/bracers/leather,
-		/obj/item/rogueweapon/knuckles
+		/obj/item/clothing/gloves/roguetown/knuckles 
 	)
 
 //Cunning Provisioner
 /obj/item/storage/backpack/rogue/artibackpack/cunningchef
 	populate_contents = list(
-		/obj/item/reagent_containers/food/snacks/rogue/dough = 3, 
+		/obj/item/reagent_containers/food/snacks/rogue/dough,
+		/obj/item/reagent_containers/food/snacks/rogue/dough,
+		/obj/item/reagent_containers/food/snacks/rogue/dough, 
 		/obj/item/reagent_containers/food/snacks/butter,
 		/obj/item/rogueweapon/huntingknife/chefknife,
 		/obj/item/reagent_containers/food/snacks/egg,
 		/obj/item/cooking/pan,
-//		/obj/item/reagant_containers/food/snack/rogue/meat/steak = 3,
-//		/obj/item/reagant_containers/food/snack/rogue/cheese
+		/obj/item/reagent_containers/food/snacks/rogue/meat,
+		/obj/item/reagent_containers/food/snacks/rogue/meat,
+		/obj/item/reagent_containers/food/snacks/rogue/meat,
+		/obj/item/reagent_containers/food/snacks/rogue/cheese
 	)
 
 /obj/item/storage/backpack/rogue/artibackpack/cunningfish
@@ -610,14 +607,20 @@
 		/obj/item/natural/worms,
 		/obj/item/natural/worms,
 		/obj/item/natural/worms,
-		/obj/item/natural/worms
+		/obj/item/natural/worms,
+		/obj/item/grown/log/tree/small,
+		/obj/item/grown/log/tree/small,
+		/obj/item/natural/bundle/stick,
+		/obj/item/natural/bundle/stick,
+		/obj/item/fishingrod
 
 	)
 
 //Duelist
 /obj/item/storage/roguebag/duelistnoble
 	populate_contents = list(
-		/obj/item/clothing/ring/duelist = 2,
+		/obj/item/clothing/ring/duelist,
+		/obj/item/clothing/ring/duelist,
 		/obj/item/rogueweapon/huntingknife/idagger/steel/parrying,
 		/obj/item/clothing/head/roguetown/duelhat,
 		
@@ -632,7 +635,8 @@
 
 /obj/item/storage/roguebag/duelistscoundrel
 	populate_contents = list(
-		/obj/item/rogueweapon/huntingknife/idagger/steel = 2,
+		/obj/item/rogueweapon/huntingknife/idagger/steel,
+		/obj/item/rogueweapon/huntingknife/idagger/steel,
 		/obj/item/clothing/under/roguetown/trou/leather,
 		/obj/item/clothing/suit/roguetown/armor/leather/jacket
 		//try poison vial? ask about more
@@ -642,8 +646,10 @@
 /obj/item/storage/roguebag/dungeonguard
 	populate_contents = list(
 		/obj/item/rogueweapon/whip,
-		/obj/item/rope/chain = 2,
-		/obj/item/rope = 2,
+		/obj/item/rope/chain,
+		/obj/item/rope/chain,
+		/obj/item/rope,
+		/obj/item/rope,
 		/obj/item/needle/thorn
 
 	)
@@ -653,7 +659,7 @@
 		/obj/item/clothing/suit/roguetown/armor/leather,
 		/obj/item/clothing/under/roguetown/trou/leather,
 		/obj/item/clothing/head/roguetown/helmet/leather,
-		/obj/item/natural/whetstone,
+		/obj/item/natural/whetstone
 
 	)
 
@@ -661,19 +667,27 @@
 /obj/item/storage/roguebag/forestlumber
 	populate_contents = list(
 		/obj/item/natural/whetstone,
-		/obj/item/natural/bundle/stick = 4,
-		/obj/item/grown/log/tree/small,
-		/obj/item/natural/worms = 3,
+		/obj/item/natural/worms,
+		/obj/item/natural/worms,
+		/obj/item/natural/worms,
+		/obj/item/fishingrod
 	)
 
 /obj/item/storage/roguebag/forestfarm
 	populate_contents = list(
 		/obj/item/reagent_containers/glass/bucket,
 		/obj/item/rogueweapon/huntingknife,
-		/obj/item/reagent_containers/food/snacks/grown/wheat = 5,
-		/obj/item/seeds/wheat = 2,
-		/obj/item/seeds/onion = 2,
-		/obj/item/seeds/apple = 2,
+		/obj/item/reagent_containers/food/snacks/grown/wheat,
+		/obj/item/reagent_containers/food/snacks/grown/wheat,
+		/obj/item/reagent_containers/food/snacks/grown/wheat,
+		/obj/item/reagent_containers/food/snacks/grown/wheat,
+		/obj/item/reagent_containers/food/snacks/grown/wheat,
+		/obj/item/seeds/wheat,
+		/obj/item/seeds/wheat,
+		/obj/item/seeds/onion,
+		/obj/item/seeds/onion,
+		/obj/item/seeds/apple,
+		/obj/item/seeds/apple,
 		/obj/item/millstone
 	)
 
@@ -681,10 +695,12 @@
 /obj/item/storage/roguebag/huntertrap
 	populate_contents = list(
 		/obj/item/rogueweapon/huntingknife,
-		/obj/item/bait = 1,
-		/obj/item/bait/sweet = 2,
+		/obj/item/bait,
+		/obj/item/bait/sweet,
+		/obj/item/bait/sweet,
 		/obj/item/grown/log/tree/small,
-		/obj/item/natural/bundle/fibers = 2,
+		/obj/item/natural/bundle/fibers,
+		/obj/item/natural/bundle/fibers,
 		/obj/item/ingot/iron
 
 	)
@@ -692,11 +708,16 @@
 /obj/item/storage/roguebag/huntertan
 	populate_contents = list(
 		/obj/item/rogueweapon/huntingknife,
-		/obj/item/natural/bundle/stick = 3,
-		/obj/item/needle/thorn = 2,
-		/obj/item/bait = 1,
-		/obj/item/bait/sweet = 2,
-		/obj/item/reagent_containers/food/snacks/fat = 3,
+		/obj/item/natural/bundle/stick,
+		/obj/item/natural/bundle/stick,
+		/obj/item/natural/bundle/stick,
+		/obj/item/needle/thorn,
+		/obj/item/bait,
+		/obj/item/bait/sweet,
+		/obj/item/bait/sweet,
+		/obj/item/reagent_containers/food/snacks/fat,
+		/obj/item/reagent_containers/food/snacks/fat,
+		/obj/item/reagent_containers/food/snacks/fat,
 		/obj/item/cooking/pan/aalloy
 
 	)
@@ -704,17 +725,23 @@
 //Intellectual
 /obj/item/storage/roguebag/intarchive
 	populate_contents = list(
-		/obj/item/skillbook/unfinished = 1,
-		/obj/item/paper = 3,
-		/obj/item/natural/feather, //same backpack load as archivist - more parchment's easy to acquire
+		/obj/item/skillbook/unfinished,
+		/obj/item/paper,
+		/obj/item/paper,
+		/obj/item/paper,
+		/obj/item/natural/feather //same backpack load as archivist - more parchment's easy to acquire
 
 	)
 
 //Lightstep (separated because I made them before combining)
 /obj/item/storage/roguebag/lightstep
 	populate_contents = list(
-		/obj/item/lockpick = 3,
-		/obj/item/bomb/smoke = 3
+		/obj/item/lockpick,
+		/obj/item/lockpick,
+		/obj/item/lockpick,
+		/obj/item/bomb/smoke,
+		/obj/item/bomb/smoke,
+		/obj/item/bomb/smoke
 		//check for emberwine, maybe odd addition?
 	)
 
@@ -722,7 +749,9 @@
 /obj/item/storage/roguebag/larcscoundrel
 	populate_contents = list(
 		/obj/item/lockpickring/mundane,
-		/obj/item/lockpick = 3,
+		/obj/item/lockpick,
+		/obj/item/lockpick,
+		/obj/item/lockpick,
 		/obj/item/rogueweapon/huntingknife/idagger
 		//check for emberwine, maybe odd addition?
 	)
@@ -763,7 +792,8 @@
 /obj/item/storage/roguebag/physurg
 	populate_contents = list(
 		/obj/item/rogueweapon/surgery/saw/improv,
-		/obj/item/rogueweapon/surgery/hemostat/improv = 2,
+		/obj/item/rogueweapon/surgery/hemostat/improv,
+		/obj/item/rogueweapon/surgery/hemostat/improv,
 		/obj/item/rogueweapon/surgery/retractor/improv,
 		/obj/item/rogueweapon/surgery/hammer,
 		/obj/item/needle,
@@ -776,9 +806,12 @@
 		/obj/item/natural/bundle/cloth,
 		/obj/item/natural/bundle/cloth,
 		/obj/item/rogueweapon/surgery/hammer,
-		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 2,
-		/obj/item/alch/urtica = 2,
-		/obj/item/alch/valeriana = 2
+		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot,
+		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot,
+		/obj/item/alch/urtica,
+		/obj/item/alch/valeriana,
+		/obj/item/alch/urtica,
+		/obj/item/alch/valeriana,
 
 	)
 
@@ -786,16 +819,21 @@
 /obj/item/storage/roguebag/sailfix
 	populate_contents = list(
 		/obj/item/rogueweapon/stoneaxe/woodcut,
-		/obj/item/natural/bundle/stick = 3,
+		/obj/item/natural/bundle/stick,
+		/obj/item/natural/bundle/stick,
+		/obj/item/natural/bundle/stick,
 		/obj/item/grown/log/tree/small,
 		/obj/item/rogueweapon/handsaw,
-		/obj/item/rogueweapon/hammer/wood
+		/obj/item/rogueweapon/hammer/wood,
+		/obj/item/fishingrod
 	)
 
 //Sleuth
 /obj/item/storage/roguebag/sleuth
 	populate_contents = list(
-		/obj/item/rogueweapon/tongs,
+		/obj/item/net,
+		/obj/item/rope,
+		/obj/item/rope
 	)
 
 //Toxophilite

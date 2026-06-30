@@ -166,30 +166,6 @@
 		else
 			recipient.verbs += /mob/living/carbon/human/proc/toggleblindness
 
-/datum/virtue/utility/performer
-	name = "Performer"
-	desc = "Music, artistry and the act of showmanship carried me through life. I've hidden a favorite instrument of mine, know how to please anyone I touch, and how to crack the eggs of hecklers."
-	custom_text = "Comes with a stashed instrument of your choice. You choose the instrument after spawning in."
-	added_traits = list(TRAIT_NUTCRACKER, TRAIT_GOODLOVER)
-	added_skills = list(list(/datum/skill/misc/music, 4, 6))
-
-/datum/virtue/utility/performer/apply_to_human(mob/living/carbon/human/recipient)
-    addtimer(CALLBACK(src, .proc/performer_apply, recipient), 50)
-
-/datum/virtue/utility/performer/proc/performer_apply(mob/living/carbon/human/recipient)
-	var/list/instruments = list()
-	for(var/instrument_type in subtypesof(/obj/item/rogue/instrument))
-		if(instrument_type == /obj/item/rogue/instrument/harp/handcarved)
-			continue //Skip the donator personal item harp.
-		var/obj/item/rogue/instrument/instr = new instrument_type()
-		instruments[instr.name] = instrument_type
-		qdel(instr)  // Clean up the temporary instance
-
-	var/chosen_name = input(recipient, "What instrument did I stash?", "STASH") as null|anything in instruments
-	if(chosen_name)
-		var/instrument_type = instruments[chosen_name]
-		recipient.mind?.special_items[chosen_name] = instrument_type
-
 /datum/virtue/utility/ugly
 	name = "Ugly"
 	desc = "Be it your family's habits in and out of womb, your own choices or Xylix's cruel roll of fate, you have been left unbearable to look at. Stuck to the unseen pits and crevices of the town, you've grown used to the foul odours of lyfe that often follow you. Corpses do not stink for you, and that is all the company you might find."
@@ -218,13 +194,6 @@
 	desc = "Cowering from authorities, loved ones or by a generous gift of the gods, you've adapted a keen sense of hearing, and can identify the speakers even when they are out of sight, their whispers ringing louder."
 	added_traits = list(TRAIT_KEENEARS)
 	custom_text = "You can identify known people who speak even when they are out of sight. You can hear people speaking normally above and below you, regardless of obstacles in the way. You can hear whispers from one tile further."
-
-/datum/virtue/utility/tracker
-	name = "Sleuth"
-	desc = "You realised long ago that the ability to find a man is as helpful to aid the law as it is to evade it."
-	added_skills = list(list(/datum/skill/misc/tracking, 3, 6))
-	added_traits = list(TRAIT_SLEUTH)
-	custom_text = "- Upon right clicking a track, you will Mark the person who made them <i>(Expert skill required, not exclusive to this Virtue)</i>.\n- Further tracks found will be automatically highlighted as theirs, along with the person themselves, if they are not sneaking or invisible at the time.\n- Reduces the cooldown for tracking, allows track examining right away, and movement no longer cancels tracking."
 
 /datum/virtue/utility/bronzearm_r
 	name = "Bronze Arm (R)"
