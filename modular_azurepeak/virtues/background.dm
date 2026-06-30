@@ -591,9 +591,9 @@
 		/obj/item/rogueweapon/huntingknife/chefknife,
 		/obj/item/reagent_containers/food/snacks/egg,
 		/obj/item/cooking/pan,
-		/obj/item/reagent_containers/food/snacks/rogue/meat,
-		/obj/item/reagent_containers/food/snacks/rogue/meat,
-		/obj/item/reagent_containers/food/snacks/rogue/meat,
+		/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+		/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+		/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
 		/obj/item/reagent_containers/food/snacks/rogue/cheese
 	)
 
